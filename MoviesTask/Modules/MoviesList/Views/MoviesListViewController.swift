@@ -15,7 +15,7 @@ class MoviesListViewController: UIViewController {
     // MARK: - Properties
     private var viewModel: MoviesListViewModelProtocol?
     // custom Init
-    convenience init(viewModel: MoviesListViewModel = MoviesListViewModel()) {
+    convenience init(viewModel: MoviesListViewModel) {
         self.init()
         self.viewModel = viewModel
     }
@@ -25,6 +25,9 @@ class MoviesListViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         setUI()
+        self.viewModel?.getMoviesList(completion: { [weak self] in
+            self?.tableView.reloadData()
+        })
     }
     // MARK: - METHODS
     private func setUI() {
@@ -44,14 +47,14 @@ extension MoviesListViewController: UITableViewDataSource, UITableViewDelegate {
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        cell.textLabel?.text =  "Movie \(indexPath.row)"
+        cell.textLabel?.text =  viewModel?.moviesList[indexPath.row].title
         return cell
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return 1
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 22
+        return viewModel?.moviesList.count ?? 0
     }
 }
