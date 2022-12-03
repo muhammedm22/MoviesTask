@@ -248,6 +248,7 @@
 		29D1B49E293BA34A0013C8CB /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				29960675293BBE4E00E0FA37 /* MovieSectionModel.swift */,
 				29D1B4A2293BA3900013C8CB /* Movies.swift */,
 			);
 			path = Model;
@@ -274,7 +275,6 @@
 			isa = PBXGroup;
 			children = (
 				29D1B4A8293BA8090013C8CB /* MoviesListViewModel.swift */,
-				29960675293BBE4E00E0FA37 /* MovieSectionModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -327,7 +327,6 @@
 				796849602584D193BAF23C0C /* Pods-MoviesTaskTests.debug.xcconfig */,
 				C2B6A7A1E928056B9FCA4CBA /* Pods-MoviesTaskTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};

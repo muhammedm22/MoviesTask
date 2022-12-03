@@ -16,7 +16,7 @@ class MoviesListViewController: UIViewController {
     // MARK: - Properties
     private var viewModel: MoviesListViewModelProtocol?
     // custom Init
-    convenience init(viewModel: MoviesListViewModel) {
+    convenience init(viewModel: MoviesListViewModelProtocol) {
         self.init()
         self.viewModel = viewModel
     }
@@ -47,6 +47,7 @@ class MoviesListViewController: UIViewController {
     }
 }
 
+// MARK: - UITable View extension
 extension MoviesListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return viewModel?.moviesSearchGroups[section].title
@@ -77,13 +78,15 @@ extension MoviesListViewController: UITableViewDataSource, UITableViewDelegate {
      
     }
 }
-
+// MARK: - UISearchBarDelegate extension
 extension MoviesListViewController: UISearchBarDelegate {
+    // Handle Search when search button clicked
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.viewModel?.didTapDoneSearch(with: searchBar.text ?? "", completion: {
             self.tableView.reloadData()
         })
     }
+    // Removing Search results when user click on Cancel button
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text = ""
         searchBar.resignFirstResponder()

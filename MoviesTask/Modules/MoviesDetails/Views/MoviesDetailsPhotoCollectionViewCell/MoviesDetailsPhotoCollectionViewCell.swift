@@ -20,7 +20,7 @@ class MoviesDetailsPhotoCollectionViewCell: UICollectionViewCell {
     func set(photo: FlickrPhoto) {
         self.photo.sd_setImage(with: self.generateImage(farm: photo.farm, server: photo.server, id: photo.id, secret: photo.secret) )
     }
-    
+    // Generate URL from Collected Data
     private func generateImage(farm: Int, server: String, id: String, secret: String) -> URL? {
         let string = "https://farm\(farm).static.flickr.com/\(server)/\(id)_\(secret).jpg"
         return URL(string: string)

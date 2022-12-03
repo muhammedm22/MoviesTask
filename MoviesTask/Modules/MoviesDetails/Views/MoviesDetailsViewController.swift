@@ -20,18 +20,13 @@ class MoviesDetailsViewController: UIViewController {
     
     // MARK: - Properties
     var viewModel: MoviesDetailsViewModelProtocol?
-    
+    // MARK: - View Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         self.title  = viewModel?.currentMovie?.title ?? ""
         setUI()
-        viewModel?.getPhotos {
-            DispatchQueue.main.async {
-                self.photosCollection.reloadData()
-            }
-        }
     }
     convenience init(viewModel: MoviesDetailsViewModelProtocol) {
         self.init()
@@ -42,6 +37,13 @@ class MoviesDetailsViewController: UIViewController {
     private func setUI() {
         setData()
         setCollectionVieW()
+        // Getting photos
+        viewModel?.getPhotos {
+            DispatchQueue.main.async {
+                // Handle reload Collection in Main thread
+                self.photosCollection.reloadData()
+            }
+        }
     }
     private func setCollectionVieW() {
         photosCollection.dataSource = self
