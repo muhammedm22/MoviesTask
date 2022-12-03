@@ -10,6 +10,7 @@ import Foundation
 protocol MoviesListViewModelProtocol: AnyObject {
     var moviesList: [Movie] { get set }
     var moviesSearchGroups: [MovieSectionModel] { get set }
+    
     func getMoviesList(completion: @escaping () -> Void)
     func didTapDoneSearch(with text: String, completion: @escaping () -> Void)
     func didTapCancelSearch(completion: @escaping () -> Void)
@@ -17,6 +18,7 @@ protocol MoviesListViewModelProtocol: AnyObject {
     func getItem(at index: Int, section: Int) -> Movie
     func getNumberOfItems(at section: Int) -> Int
     func getNumberOfSections() -> Int
+    func didSelectItem(index: Int, section: Int, completion: (_ movie: Movie) -> Void)
 }
 
 class MoviesListViewModel: MoviesListViewModelProtocol {
@@ -91,6 +93,16 @@ class MoviesListViewModel: MoviesListViewModelProtocol {
             return moviesSearchGroups[index].title
         } else {
             return "All Movies"
+        }
+    }
+    
+    func didSelectItem(index: Int, section: Int, completion: (_ movie: Movie) -> Void) {
+        if searchEnabled {
+            let movie = self.moviesSearchGroups[section].movies[index]
+            completion(movie)
+        } else {
+            let movie = self.moviesList[index]
+            completion(movie)
         }
     }
     

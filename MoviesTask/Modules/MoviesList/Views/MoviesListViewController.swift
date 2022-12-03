@@ -66,6 +66,16 @@ extension MoviesListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel?.getNumberOfItems(at: section) ?? 0
     }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        viewModel?.didSelectItem(index: indexPath.row, section: indexPath.section, completion: { [weak self] movie in
+            guard let self = self else { return }
+            let viewModel = MoviesDetailsViewModel(currentMovie: movie)
+            let vc = MoviesDetailsViewController(viewModel: viewModel)
+            self.navigationController?.pushViewController(vc, animated: true)
+        })
+     
+    }
 }
 
 extension MoviesListViewController: UISearchBarDelegate {
