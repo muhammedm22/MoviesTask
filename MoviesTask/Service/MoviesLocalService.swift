@@ -6,9 +6,6 @@
 //
 
 import Foundation
-protocol MoviesServiceProtocol: AnyObject {
-    func getMovies(completion: @escaping (Result<Movies, Error>) -> Void)
-}
 
 class MoviesLocalService: MoviesServiceProtocol {
     private let jsonFileName = "movies"
