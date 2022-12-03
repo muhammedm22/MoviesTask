@@ -11,6 +11,7 @@ class MoviesListViewController: UIViewController {
     
     // MARK: - Outlets
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
 
     // MARK: - Properties
     private var viewModel: MoviesListViewModelProtocol?
@@ -32,29 +33,52 @@ class MoviesListViewController: UIViewController {
     // MARK: - METHODS
     private func setUI() {
         setTableView()
+        setSearchBar()
     }
     
     private func setTableView() {
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.register(UINib(nibName: "\(MoviesListTableViewCell.self)", bundle: .main) , forCellReuseIdentifier: "MoviesListTableViewCell")
     }
 
+    private func setSearchBar() {
+        searchBar.delegate = self
+    }
 }
 
 extension MoviesListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Section \(section + 1)"
+        return viewModel?.moviesSearchGroups[section].title
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        cell.textLabel?.text =  viewModel?.moviesList[indexPath.row].title
-        return cell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MoviesListTableViewCell") as? MoviesListTableViewCell
+        let item = viewModel?.getItem(at: indexPath.row, section: indexPath.section)
+        if let movie = item {
+            cell?.set(movie: movie)
+        }
+        return cell ?? UITableViewCell()
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return viewModel?.getNumberOfSections() ?? 0
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel?.moviesList.count ?? 0
+        return viewModel?.getNumberOfItems(at: section) ?? 0
+    }
+}
+
+extension MoviesListViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.viewModel?.didTapDoneSearch(with: searchBar.text ?? "", completion: {
+            self.tableView.reloadData()
+        })
+    }
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
+        searchBar.resignFirstResponder()
+        self.viewModel?.didTapCancelSearch(completion: {
+            self.tableView.reloadData()
+        })
     }
 }

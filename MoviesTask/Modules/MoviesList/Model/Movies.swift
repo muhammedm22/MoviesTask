@@ -14,5 +14,5 @@ struct Movies: Codable {
 struct Movie: Codable {
     let title: String
     let year: Int
-    let rating: Int?
+    let rating: Int
 }

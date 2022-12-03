@@ -11,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MoviesListViewController" customModule="MoviesTask" customModuleProvider="target">
             <connections>
-                <outlet property="searchDisplayController" destination="WC8-je-XDF" id="7fw-le-WHc"/>
+                <outlet property="searchBar" destination="Xte-KO-kMV" id="BI3-2r-Ag5"/>
                 <outlet property="tableView" destination="zS8-eC-UgY" id="W4j-x2-IRb"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -25,7 +25,7 @@
                     <rect key="frame" x="0.0" y="91" width="390" height="753"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
-                <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Xte-KO-kMV">
+                <searchBar contentMode="redraw" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xte-KO-kMV">
                     <rect key="frame" x="0.0" y="47" width="390" height="44"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="6GP-34-V0a"/>
@@ -49,15 +49,6 @@
             </constraints>
             <point key="canvasLocation" x="90.769230769230759" y="-11.374407582938389"/>
         </view>
-        <searchDisplayController id="WC8-je-XDF">
-            <connections>
-                <outlet property="delegate" destination="-1" id="TKr-Az-DMC"/>
-                <outlet property="searchBar" destination="Xte-KO-kMV" id="8U2-u5-pvc"/>
-                <outlet property="searchContentsController" destination="-1" id="Fjd-rH-fVR"/>
-                <outlet property="searchResultsDataSource" destination="-1" id="1Kh-LP-1gB"/>
-                <outlet property="searchResultsDelegate" destination="-1" id="7Ya-yv-XyH"/>
-            </connections>
-        </searchDisplayController>
     </objects>
     <resources>
         <systemColor name="systemBackgroundColor">
